@@ -26,6 +26,10 @@ type findOneUnidadeRequest = {
   id_unidade: string
 }
 
+type findUnidadeByCursoRequest = {
+  fk_curso: string
+}
+
 // 3) Funções CRUD
 
 export class UnidadeService {
@@ -35,7 +39,7 @@ export class UnidadeService {
     ordem,
     fk_curso,
   }: newUnidadeRequest): Promise<Unidade | Error> {
-    if (await cursor.findOne({ where: { descricao_unidade } })) {
+    if (await cursor.findOne({ where: { descricao_unidade, fk_curso } })) {
       return new Error("Unidade já cadastrada!")
     }
 
@@ -66,6 +70,16 @@ export class UnidadeService {
     return unidade
   }
 
+  async readByCurso({
+    fk_curso,
+  }: findUnidadeByCursoRequest): Promise<Array<Unidade> | Error> {
+    const unidades = await cursor.find({ where: { fk_curso } })
+    if (!unidades || unidades.length < 1) {
+      return new Error("Não foram encontradas unidades para este curso!")
+    }
+    return unidades
+  }
+
   async update({
     id_unidade,
     descricao_unidade,
@@ -92,14 +106,12 @@ export class UnidadeService {
     return unidade
   }
 
-  async delete({
-    id_unidade,
-  }: findOneUnidadeRequest): Promise<Unidade | Error> {
+  async delete({ id_unidade }: findOneUnidadeRequest): Promise<String | Error> {
     const unidade = await cursor.findOne({ where: { id_unidade } })
     if (!unidade) {
       return new Error("Unidade não encontrada!")
     }
     await cursor.delete(unidade.id_unidade)
-    return unidade
+    return "Unidade excluída com sucesso!"
   }
 }

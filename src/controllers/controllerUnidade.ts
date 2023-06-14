@@ -38,6 +38,15 @@ export default class UnidadeController {
     return response.json(result)
   }
 
+  async readByCurso(request: Request, response: Response) {
+    const { fk_curso } = request.params
+    const result = await service.readByCurso({ fk_curso })
+    if (result instanceof Error) {
+      return response.status(418).json(result.message)
+    }
+    return response.json(result)
+  }
+
   async update(request: Request, response: Response) {
     const { id_unidade } = request.params
     const { descricao_unidade, carga_horaria_unidade, ordem, fk_curso } =
@@ -59,7 +68,7 @@ export default class UnidadeController {
     const { id_unidade } = request.params
     const result = await service.delete({ id_unidade })
     if (result instanceof Error) {
-      return response.status(400).json(result.message)
+      return response.status(404).json(result.message)
     }
     return response.status(300).json(result)
   }

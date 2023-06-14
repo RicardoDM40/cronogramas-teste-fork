@@ -38,6 +38,24 @@ export default class CursoController {
     return response.json(result)
   }
 
+  async readByEixo(request: Request, response: Response) {
+    const { eixo } = request.body
+    const result = await service.readByEixo({ eixo })
+    if (result instanceof Error) {
+      return response.status(418).json(result.message)
+    }
+    return response.json(result)
+  }
+
+  async readByModalidade(request: Request, response: Response) {
+    const { modalidade } = request.body
+    const result = await service.readByModalidade({ modalidade })
+    if (result instanceof Error) {
+      return response.status(418).json(result.message)
+    }
+    return response.json(result)
+  }
+
   async update(request: Request, response: Response) {
     const { id_curso } = request.params
     const { descricao_curso, carga_horaria_curso, modalidade, eixo } =
@@ -63,5 +81,4 @@ export default class CursoController {
     }
     return response.status(300).json(result)
   }
-
 }

@@ -14,6 +14,7 @@ export default class Aula {
   @Column()
   status_aula: string
 
+  // chaves estrangeiras
   @Column()
   fk_turma: string
 

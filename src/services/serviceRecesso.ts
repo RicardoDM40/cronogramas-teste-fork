@@ -29,7 +29,7 @@ export class RecessoService {
     descricao_recesso,
     data_recesso,
   }: newRecessoRequest): Promise<Recesso | Error> {
-    if (await cursor.findOne({ where: { descricao_recesso } })) {
+    if (await cursor.findOne({ where: { data_recesso } })) {
       return new Error("Recesso já cadastrado!")
     }
 
@@ -78,14 +78,12 @@ export class RecessoService {
     return recesso
   }
 
-  async delete({
-    id_recesso,
-  }: findOneRecessoRequest): Promise<Recesso | Error> {
+  async delete({ id_recesso }: findOneRecessoRequest): Promise<String | Error> {
     const recesso = await cursor.findOne({ where: { id_recesso } })
     if (!recesso) {
       return new Error("Recesso não encontrado!")
     }
     await cursor.delete(recesso.id_recesso)
-    return recesso
+    return "Recesso excluído com sucesso!"
   }
 }
