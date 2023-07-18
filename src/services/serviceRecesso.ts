@@ -1,9 +1,9 @@
-import { AppDataSource } from "../databases/connections/datasourceDev"
+import { ProdDataSource } from "../databases/connections/datasourceProd"
 import Recesso from "../databases/models/recesso"
 
 // 1) Estabelece conexão com a tabela alvo no banco de dados através de um cursor
 
-const cursor = AppDataSource.getRepository(Recesso)
+const cursor = ProdDataSource.getRepository(Recesso)
 
 // 2) Recebe dados da Requisição HTTP lá do FRONTEND
 

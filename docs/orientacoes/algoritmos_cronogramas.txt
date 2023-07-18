@@ -1,0 +1,29 @@
+ALGORITMO GERAR CRONOGRAMA
+
+*Entradas
+- Curso (carga_horaria_curso)
+- Turma (data_inicio, horas_aula_dia)
+- Unidade (id_unidade, carga_horaria_unidade)
+
+*Processamento
+
+cadastrarAulas
+- dias_letivos = carga_horaria_curso / horas_aulas_dia 
+- data_aula = data_inicio
+- dia = 1
+- para dia de 1 até dias_letivos faça:
+  - createAula(data_aula)
+  - data_aula + 1
+
+designarUnidade
+- dias_uc = carga_horaria_unidade / horas_aulas_dia
+- listaAulasUC = // adiciona aulas da UC na lista
+para aula in listaAulasUC faça:
+  - updateAula(fk_unidade = id_unidade)
+
+cancelarAula
+- updateAula(status="cancelada")
+- listaAulas = SELECT * FROM aulas WHERE turma = idTurma
+- para cada aula in listaAulas:
+  aula.data_aula = data_aula + 1
+

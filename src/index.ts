@@ -1,8 +1,13 @@
 import { AppDataSource } from "./databases/connections/datasourceDev"
+import { ProdDataSource } from "./databases/connections/datasourceProd"
 import rotas from "./routes/routes"
 
-AppDataSource.initialize()
+// ProdDataSource.initialize()
 
+ProdDataSource.initialize()
+.then()
+    console.log("Database connected!")
+    
 const express = require("express")
 const app = express()
 app.use(express.json())

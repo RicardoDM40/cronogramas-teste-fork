@@ -11,6 +11,7 @@
     "noImplicitAny": false,
     "outDir": "build",
     "rootDir": "src",
+    "sourceMap": true
     // "baseUrl": "./",
     // "paths": {
     //   //   "@controllers": ["controllers/*"],
